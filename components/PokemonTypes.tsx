@@ -1,14 +1,20 @@
 import React from "react";
-import { typeColors } from "../lib/typeColors";
+import { typeColors } from "@/lib/typeColors";
 
 interface PokemonType {
   name: string;
 }
 
 async function getPokemonTypes() {
-  const res = await fetch("https://pokeapi.co/api/v2/type");
-  const data = await res.json();
-  return data.results;
+  try {
+    const res = await fetch("https://pokeapi.co/api/v2/type");
+    if (!res.ok) throw new Error("Failed to fetch");
+    const data = await res.json();
+    return data.results;
+  } catch (error) {
+    console.error("Error fetching pokemon types:", error);
+    return [];
+  }
 }
 
 export default async function PokemonTypes() {
@@ -20,18 +26,18 @@ export default async function PokemonTypes() {
         Pokemon Types
       </h2>
       <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
-        {/* Added responsive grid columns */}
-        {types.map((type: PokemonType) => (
-          <li
-            key={type.name}
-            className={`${
-              typeColors[type.name]
-            } p-2 rounded text-center capitalize`}
-          >
-            {/* Added text-center for better visual alignment */}
-            {type.name}
-          </li>
-        ))}
+        {types.map((type: PokemonType) => {
+          const colorClasses = typeColors[type.name] || typeColors.unknown;
+
+          return (
+            <li
+              key={type.name}
+              className={`${colorClasses} p-2 rounded text-center capitalize cursor-pointer hover:opacity-90 transition-opacity`}
+            >
+              {type.name}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
