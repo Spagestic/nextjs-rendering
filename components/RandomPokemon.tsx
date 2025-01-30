@@ -10,6 +10,13 @@ interface PokemonType {
   };
 }
 
+interface PokemonStat {
+  base_stat: number;
+  stat: {
+    name: string;
+  };
+}
+
 // Opt out of caching completely
 async function fetchRandomPokemon(retries = 3): Promise<Pokemon> {
   noStore(); // Disable all caching mechanisms
@@ -69,7 +76,7 @@ export default async function RandomPokemon() {
               </tr>
             </thead>
             <tbody>
-              {pokemon.stats.map((stat) => (
+              {pokemon.stats.map((stat: PokemonStat) => (
                 <tr key={stat.stat.name} className="border-t">
                   <td className="py-2 px-3 capitalize">{stat.stat.name}</td>
                   <td className="py-2 px-3">
