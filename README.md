@@ -1,36 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Rendering Patterns Demo
+
+[![Next.js](https://img.shields.io/badge/Next.js-14.0.4-black?style=flat&logo=next.js)](https://nextjs.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+A demonstration of various Next.js rendering patterns and modern web development techniques using the Pokémon API.
+
+![Demo Screenshot](public/image.png)
+
+## Features
+
+- **SSG (Static Site Generation)** - Pre-rendered static content
+- **SSR (Server-Side Rendering)** - Dynamic server-rendered components
+- **ISR (Incremental Static Regeneration)** - Periodically updated static content
+- **CSR (Client-Side Rendering)** - Interactive client-side features
+- **PPR (Partial Prerendering)** - Hybrid static/dynamic rendering (experimental)
+- Advanced caching strategies (localStorage, Map API)
+- Auto-suggest functionality with debouncing
+- Responsive UI with Tailwind CSS
+- Type-safe implementation with TypeScript
+
+## Project Structure
+
+```bash
+Nextjs-rendering/
+├── 📁 .vscode
+│   └── tasks.json          # VSCode workspace configurations
+├── 📁 app
+│   ├── favicon.ico         # Application favicon
+│   ├── globals.css         # Global CSS styles
+│   ├── layout.tsx          # Root layout component
+│   ├── loading.tsx         # Loading skeleton component
+│   └── page.tsx            # Main page component
+├── 📁 components
+│   ├── 📁 ui
+│   │   └── button.tsx      # Reusable button component
+│   ├── Header.tsx          # Animated header component
+│   ├── PokemonDetails.tsx  # PPR demonstration component
+│   ├── PokemonSearch.tsx   # CSR demonstration component
+│   ├── PokemonTypes.tsx    # ISR demonstration component
+│   └── RandomPokemon.tsx   # SSR demonstration component
+├── 📁 lib
+│   ├── typeColors.tsx      # Pokémon type color mappings
+│   └── utils.ts            # Utility functions
+├── 📁 public               # Static assets
+└── 📁 types
+    └── pokemon.tsx         # TypeScript type definitions
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm 9+
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/nextjs-rendering-patterns.git
+```
+
+2. Install dependencies:
+
+```bash
+cd nextjs-rendering-patterns
+npm install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Key Technologies
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js 14** - App Router and React Server Components
+- **React 18** - Concurrent features and Suspense
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Modern utility-first styling
+- **Axios** - HTTP client for API requests
+- **PPR (Experimental)** - Partial Prerendering
 
-## Learn More
+## Rendering Patterns Explained
 
-To learn more about Next.js, take a look at the following resources:
+### 1. Static Site Generation (SSG)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Component**: `Header`
+- Pre-rendered at build time
+- Ideal for static content that doesn't change frequently
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. Server-Side Rendering (SSR)
 
-## Deploy on Vercel
+- **Component**: `RandomPokemon`
+- Fetches fresh data on each request
+- Opts out of caching using `unstable_noStore`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3. Incremental Static Regeneration (ISR)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Component**: `PokemonTypes`
+- Revalidates data every hour
+- Mixes static generation with periodic updates
+
+### 4. Client-Side Rendering (CSR)
+
+- **Component**: `PokemonSearch`
+- Features:
+  - Client-side caching with Map API
+  - localStorage persistence
+  - Debounced search inputs
+  - Auto-suggest functionality
+
+### 5. Partial Prerendering (PPR)
+
+- **Component**: `PokemonDetails`
+- Experimental Next.js feature
+- Instantly displays static shell while loading dynamic content
+- Uses React Suspense for streaming
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+This README includes:
+
+1. Clear project overview and features
+2. Visual file structure representation
+3. Installation and usage instructions
+4. Technology stack details
+5. Explanation of rendering patterns with component mappings
+6. Contribution guidelines and license information
+
+You may want to:
+
+1. Add actual screenshot to `/public` folder
+2. Update repository URL in installation instructions
+3. Add additional badges for CI/CD or other services
+4. Include environment variables if needed
+5. Add API documentation links for Pokémon API
