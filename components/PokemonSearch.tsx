@@ -215,7 +215,9 @@ export default function PokemonSearch() {
                   {pokemon.types.map((type: PokemonType, index) => (
                     <span
                       key={index as number}
-                      className="px-2 py-1 bg-gray-100 rounded-full text-sm capitalize"
+                      className={`px-2 py-1 ${
+                        typeColors[type.type.name] || typeColors.unknown
+                      } rounded-full text-sm`}
                     >
                       {type.type.name}
                     </span>
