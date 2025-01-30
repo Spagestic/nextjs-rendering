@@ -9,21 +9,24 @@ export const experimental_ppr = true;
 export default function Home() {
   return (
     <main className="container mx-auto p-4">
+      {/* Static Site Generation (SSG) - Built at compile time */}
       <Header />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div>
-        {/* Static Content (SSG) */}
+          {/* Incremental Static Regeneration (ISR) */}
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Static Content (SSG)</h2>
+            <h2 className="text-2xl font-bold mb-4">
+              Incremental Static Regeneration (ISR)
+            </h2>
             <p className="mb-4">
-              The header above is an example of static content. It&apos;s
-              pre-rendered at build time and doesn&apos;t change, making it
-              ideal for Static Site Generation (SSG).
+              The Pokemon types list below is revalidated every hour. It uses
+              ISR to update static content after initial build while maintaining
+              performance benefits.
             </p>
             <PokemonTypes />
           </section>
 
-          {/* Dynamic Content (SSR) */}
+          {/* Server-Side Rendering (SSR) */}
           <section className="mb-8">
             <h2 className="text-2xl font-bold mb-4">Dynamic Content (SSR)</h2>
             <p className="mb-4">
@@ -34,16 +37,29 @@ export default function Home() {
             <RandomPokemon />
           </section>
 
-          {/* Interactive Content (CSR) */}
+          {/* Client-Side Rendering (CSR) */}
           <section className="mb-8">
             <h2 className="text-2xl font-bold mb-4">
-              Interactive Content (CSR)
+              Client-Side Rendering (CSR)
             </h2>
             <p className="mb-4">
-              This search form showcases Client-Side Rendering (CSR). It&apos;s
-              a React component that handles user interactions entirely in the
-              browser.
+              The search component below demonstrates advanced CSR features:
             </p>
+            <ul className="list-disc pl-5 mb-4">
+              <li className="mb-2">Client-side caching using Map API</li>
+              <li className="mb-2">
+                Persistent search history via localStorage
+              </li>
+              <li className="mb-2">
+                Auto-suggest functionality with debouncing
+              </li>
+              <li className="mb-2">
+                Client-side error handling and loading states
+              </li>
+              <li className="mb-2">
+                Optimized network requests with cache-first strategy
+              </li>
+            </ul>
             <PokemonSearch />
           </section>
         </div>
