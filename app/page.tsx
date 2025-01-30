@@ -12,6 +12,7 @@ export default function Home() {
       <Header />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div>
+        {/* Static Content (SSG) */}
           <section className="mb-8">
             <h2 className="text-2xl font-bold mb-4">Static Content (SSG)</h2>
             <p className="mb-4">
@@ -22,6 +23,7 @@ export default function Home() {
             <PokemonTypes />
           </section>
 
+          {/* Dynamic Content (SSR) */}
           <section className="mb-8">
             <h2 className="text-2xl font-bold mb-4">Dynamic Content (SSR)</h2>
             <p className="mb-4">
@@ -32,6 +34,7 @@ export default function Home() {
             <RandomPokemon />
           </section>
 
+          {/* Interactive Content (CSR) */}
           <section className="mb-8">
             <h2 className="text-2xl font-bold mb-4">
               Interactive Content (CSR)
@@ -46,6 +49,7 @@ export default function Home() {
         </div>
 
         <div>
+          {/* Partial Prerendering (PPR) */}
           <section className="mb-8">
             <h2 className="text-2xl font-bold mb-4">
               Partial Prerendering (PPR)
@@ -59,6 +63,7 @@ export default function Home() {
             <PokemonDetails />
           </section>
 
+          {/* Caching */}
           <section className="mb-8">
             <h2 className="text-2xl font-bold mb-4">Caching</h2>
             <p className="mb-4">
@@ -69,6 +74,7 @@ export default function Home() {
             </p>
           </section>
 
+          {/* Other Next.js Concepts */}
           <section className="mb-8">
             <h2 className="text-2xl font-bold mb-4">Other Next.js Concepts</h2>
             <ul className="list-disc pl-5">
