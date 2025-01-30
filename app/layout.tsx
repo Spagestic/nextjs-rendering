@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Pokemon App - Next.js Rendering Strategies",
   description:
     "Demonstrating various Next.js rendering strategies using the PokeAPI",
+  icons: ["./pokeball.jpeg"],
 };
 
 export default function RootLayout({
