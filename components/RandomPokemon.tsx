@@ -4,6 +4,12 @@ import Image from "next/image";
 import type { Pokemon } from "@/types/pokemon";
 import { typeColors } from "../lib/typeColors";
 
+interface PokemonType {
+  type: {
+    name: string;
+  };
+}
+
 // Opt out of caching completely
 async function fetchRandomPokemon(retries = 3): Promise<Pokemon> {
   noStore(); // Disable all caching mechanisms
@@ -43,7 +49,7 @@ export default async function RandomPokemon() {
           </p>
 
           <div className="flex flex-wrap gap-2 justify-center mb-2">
-            {pokemon.types.map((type) => (
+            {pokemon.types.map((type: PokemonType) => (
               <span
                 key={type.type.name}
                 className={`px-2 py-1 ${

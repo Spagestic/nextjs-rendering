@@ -4,6 +4,12 @@ import { unstable_noStore as noStore } from "next/cache";
 import Image from "next/image";
 import { typeColors } from "../lib/typeColors"; // Import typeColors
 
+interface PokemonType {
+  type: {
+    name: string;
+  };
+}
+
 async function fetchDetailsWithDelay() {
   noStore();
   await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -80,7 +86,7 @@ async function PokemonData() {
         </p>
 
         <div className="flex flex-wrap gap-2 justify-center mb-2">
-          {pokemon.types.map((type) => (
+          {pokemon.types.map((type: PokemonType) => (
             <span
               key={type.type.name}
               className={`px-2 py-1 ${
