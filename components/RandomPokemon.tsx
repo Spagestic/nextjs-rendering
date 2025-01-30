@@ -1,7 +1,7 @@
 // components/RandomPokemon.tsx
 import { unstable_noStore as noStore } from "next/cache";
 import Image from "next/image";
-import { Pokemon } from "@/types/pokemon";
+import type { Pokemon } from "@/types/pokemon";
 import { typeColors } from "../lib/typeColors";
 
 // Opt out of caching completely
