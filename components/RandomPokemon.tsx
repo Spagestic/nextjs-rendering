@@ -1,33 +1,30 @@
+// components/RandomPokemon.tsx
 import { unstable_noStore as noStore } from "next/cache";
 import Image from "next/image";
-import type { Pokemon } from "@/types/pokemon";
+import { Pokemon } from "@/types/pokemon";
 import { typeColors } from "../lib/typeColors";
 
-async function getRandomPokemon(retries = 3): Promise<Pokemon> {
-  noStore();
+// Opt out of caching completely
+async function fetchRandomPokemon(retries = 3): Promise<Pokemon> {
+  noStore(); // Disable all caching mechanisms
   const id = Math.floor(Math.random() * 151) + 1;
 
   try {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
-      next: { revalidate: 0 },
+      next: { revalidate: 0 }, // Equivalent to cache: 'no-store'
     });
 
-    if (!res.ok) {
-      throw new Error(`Failed to fetch Pokemon: ${res.status}`);
-    }
-
+    if (!res.ok) throw new Error(`Failed to fetch Pokemon: ${res.status}`);
     return res.json();
   } catch (error) {
-    if (retries > 0) {
-      return getRandomPokemon(retries - 1);
-    }
+    if (retries > 0) return fetchRandomPokemon(retries - 1);
     throw error;
   }
 }
 
 export default async function RandomPokemon() {
   try {
-    const pokemon = await getRandomPokemon();
+    const pokemon = await fetchRandomPokemon();
 
     return (
       <div className="mb-4">
