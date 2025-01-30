@@ -70,3 +70,18 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .transition-shadow {
+    transition: box-shadow 0.2s ease-in-out;
+  }
+
+  .sticky {
+    position: sticky;
+    align-self: start;
+  }
+
+  .gradient-header {
+    background: linear-gradient(135deg, #7928ca 0%, #ff0080 100%);
+  }
+}
