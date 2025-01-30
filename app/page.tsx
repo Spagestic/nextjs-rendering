@@ -8,7 +8,7 @@ export const experimental_ppr = true;
 
 export default function Home() {
   return (
-    <main className="container mx-auto px-4 lg:px-8">
+    <main className="container mx-auto pb-8 px-4 lg:px-8">
       <Header />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
