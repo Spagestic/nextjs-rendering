@@ -1,7 +1,7 @@
 // components/PokemonSearch.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import Image from "next/image";
 import { Button } from "./ui/button";
@@ -50,42 +50,48 @@ export default function PokemonSearch() {
   }, [searchHistory]);
 
   // Cache management
-  const addToCache = (name: string, data: Pokemon) => {
+  const addToCache = useCallback((name: string, data: Pokemon) => {
     setCache((prev) => new Map(prev).set(name, data));
-  };
+  }, []);
 
-  const searchPokemon = async (name: string) => {
-    if (!name) return;
+  const searchPokemon = useCallback(
+    async (name: string) => {
+      if (!name) return;
 
-    const lowerName = name.toLowerCase();
+      const lowerName = name.toLowerCase();
 
-    // Check cache first
-    if (cache.has(lowerName)) {
-      setPokemon(cache.get(lowerName)!);
-      return;
-    }
+      // Check cache first
+      if (cache.has(lowerName)) {
+        const cachedPokemon = cache.get(lowerName);
+        if (cachedPokemon) {
+          setPokemon(cachedPokemon);
+          setSuggestions([]); // Clear suggestions
+          return;
+        }
+        return;
+      }
 
-    try {
-      setLoading(true);
-      setError(null);
+      try {
+        setLoading(true);
+        setError(null);
 
-      const response = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon/${lowerName}`
-      );
-      const data = response.data;
+        const response = await axios.get(
+          `https://pokeapi.co/api/v2/pokemon/${lowerName}`
+        );
+        const data = response.data;
 
-      setPokemon(data);
-      addToCache(lowerName, data);
-      setSearchHistory((prev) =>
-        [...new Set([lowerName, ...prev])].slice(0, 5)
-      );
-    } catch (err) {
-      setError("Pokémon not found!");
-      setPokemon(null);
-    } finally {
-      setLoading(false);
-    }
-  };
+        setPokemon(data);
+        setSuggestions([]); // Clear suggestions
+        addToCache(lowerName, data); // Add to cache
+      } catch {
+        setError("Pokémon not found!");
+        setPokemon(null);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [cache, addToCache]
+  );
 
   // Debounced search with auto-suggest
   useEffect(() => {
@@ -105,7 +111,7 @@ export default function PokemonSearch() {
     }, 300);
 
     return () => clearTimeout(handler);
-  }, [searchTerm]);
+  }, [searchTerm, allPokemon, searchPokemon]);
 
   return (
     <div className="mb-4 relative">
@@ -115,6 +121,7 @@ export default function PokemonSearch() {
           onSubmit={(e) => {
             e.preventDefault();
             searchPokemon(searchTerm);
+            setSuggestions([]); // Clear suggestions on form submit
           }}
         >
           <div className="relative">
@@ -130,8 +137,9 @@ export default function PokemonSearch() {
             {suggestions.length > 0 && (
               <div className="absolute z-10 w-full bg-white border rounded shadow-lg mt-1">
                 {suggestions.map((name) => (
-                  <div
+                  <button
                     key={name}
+                    type="button"
                     onClick={() => {
                       setSearchTerm(name);
                       setSuggestions([]);
@@ -139,7 +147,7 @@ export default function PokemonSearch() {
                     className="p-2 hover:bg-gray-100 cursor-pointer capitalize"
                   >
                     {name}
-                  </div>
+                  </button>
                 ))}
               </div>
             )}
@@ -173,7 +181,7 @@ export default function PokemonSearch() {
                 <div className="flex gap-2 mt-2">
                   {pokemon.types.map((type, index) => (
                     <span
-                      key={index}
+                      key={index as number}
                       className="px-2 py-1 bg-gray-100 rounded-full text-sm capitalize"
                     >
                       {type.type.name}
