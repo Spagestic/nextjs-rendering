@@ -20,6 +20,12 @@ interface Pokemon {
   weight: number;
 }
 
+interface PokemonType {
+  type: {
+    name: string;
+  };
+}
+
 export default function PokemonSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
@@ -183,7 +189,7 @@ export default function PokemonSearch() {
                   {pokemon.name}
                 </h3>
                 <div className="flex gap-2 mt-2">
-                  {pokemon.types.map((type, index) => (
+                  {pokemon.types.map((type: PokemonType, index) => (
                     <span
                       key={index as number}
                       className="px-2 py-1 bg-gray-100 rounded-full text-sm capitalize"
