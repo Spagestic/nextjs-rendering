@@ -83,8 +83,10 @@ export default function PokemonSearch() {
         setPokemon(data);
         setSuggestions([]); // Clear suggestions
         addToCache(lowerName, data); // Add to cache
-      } catch {
-        setError("Pokémon not found!");
+      } catch (error: unknown) {
+        const errorMessage =
+          error instanceof Error ? error.message : "Pokémon not found!";
+        setError(errorMessage);
         setPokemon(null);
       } finally {
         setLoading(false);
@@ -107,6 +109,8 @@ export default function PokemonSearch() {
         if (searchTerm.length >= 3) {
           searchPokemon(searchTerm);
         }
+      } else {
+        setSuggestions([]);
       }
     }, 300);
 
