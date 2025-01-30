@@ -16,8 +16,8 @@ export default function Home() {
             <h2 className="text-2xl font-bold mb-4">Static Content (SSG)</h2>
             <p className="mb-4">
               The header above is an example of static content. It&apos;s
-              pre-rendered at build time and doesn&apos;t change, making it ideal for
-              Static Site Generation (SSG).
+              pre-rendered at build time and doesn&apos;t change, making it
+              ideal for Static Site Generation (SSG).
             </p>
             <PokemonTypes />
           </section>
@@ -37,8 +37,8 @@ export default function Home() {
               Interactive Content (CSR)
             </h2>
             <p className="mb-4">
-              This search form showcases Client-Side Rendering (CSR). It&apos;s a
-              React component that handles user interactions entirely in the
+              This search form showcases Client-Side Rendering (CSR). It&apos;s
+              a React component that handles user interactions entirely in the
               browser.
             </p>
             <PokemonSearch />
